@@ -62,7 +62,7 @@ public class SlackDejApplication {
 
 
             // Il n'y a pas encore de channels, on créé le channel "général"
-            Channel channelGeneral = new Channel("général");
+            Channel channelGeneral = new Channel("Général");
             channelGeneral.setisDeletable(false);
             channelGeneral.setUser(userAdmin);
             Channel savedChannelGeneral = channelService.add(channelGeneral);
