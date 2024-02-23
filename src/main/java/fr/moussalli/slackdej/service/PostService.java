@@ -9,6 +9,7 @@ import fr.moussalli.slackdej.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,8 +35,18 @@ public class PostService {
     }
 
     public Post addPost(Post post) {
-        postRepository.save(post);
-        return post;
+        Optional<Channel> existingChannel = channelRepository.findById(post.getIdChannel());
+        if (existingChannel.isPresent()) {
+
+            Channel channel = existingChannel.get();
+
+            post.setChannel(channel);
+            post.setPostDateTime(new Date());
+            postRepository.save(post);
+            return post;
+        }else {
+            return null;
+        }
     }
 
     public void deletePost(long id) {
@@ -43,8 +54,19 @@ public class PostService {
     }
 
     public Post updatePost(Post post, long id) {
-        postRepository.save(post);
-        return post;
+        Optional<Channel> existingChannelUpdate = channelRepository.findById(post.getIdChannel());
+
+        if (existingChannelUpdate.isPresent()) {
+            Channel channel = existingChannelUpdate.get();
+
+            post.setChannel(channel);
+            post.setPostDateTime(new Date());
+            post.setId(id);
+            postRepository.save(post);
+            return post;
+        }else {
+            return null;
+        }
     }
 
 

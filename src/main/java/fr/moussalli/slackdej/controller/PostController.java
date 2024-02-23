@@ -35,10 +35,9 @@ public class PostController {
     @PostMapping("/post")
     public ResponseEntity<?> addPost(@RequestBody Post post) {
 
-        if (post.getMessage() == null || post.getMessage().isBlank() ||
-                post.getPostDateTime() == null) {
+        if (post.getMessage() == null || post.getMessage().isBlank()) {
 
-            return new ResponseEntity<>("All fields must be completed !", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("message is required !", HttpStatus.BAD_REQUEST);
         }
         Post postAdded = postService.addPost(post);
 
@@ -48,13 +47,13 @@ public class PostController {
 
     @DeleteMapping("/post/{id}")
     public ResponseEntity<?> deletePost(@PathVariable long id) {
-//        Post existingPost = postRepository.findById(id).orElse(null);
-//        if (existingPost != null) {
-//            postService.deletePost(id);
+        Post existingPost = postRepository.findById(id).orElse(null);
+        if (existingPost != null) {
+            postService.deletePost(id);
             return new ResponseEntity<>("Post with " + id + " successfully deleted", HttpStatus.OK);
-//        }else{
-//            return new ResponseEntity<>("Post not found with id : " + id, HttpStatus.NOT_FOUND);
-//        }
+        }else{
+            return new ResponseEntity<>("Post not found with id : " + id, HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/post/{id}")
