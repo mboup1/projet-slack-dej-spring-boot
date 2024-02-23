@@ -28,6 +28,9 @@ public class Post {
     @JsonIgnore
     private Channel channel;
 
+    private Long idChannel;
+
+
 
     public Post() {
     }
@@ -60,6 +63,10 @@ public class Post {
     public void setPostDateTime(Date postDateTime) {
         this.postDateTime = postDateTime;
     }
+
+    public Long getIdChannel() {return idChannel;}
+
+    public void setIdChannel(Long idChannel) {this.idChannel = idChannel;}
 
     public User getUser() {return user;}
 
