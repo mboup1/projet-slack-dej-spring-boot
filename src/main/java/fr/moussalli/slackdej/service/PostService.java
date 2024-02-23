@@ -53,17 +53,26 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
-    public Post updatePost(Post post, long id) {
-        Optional<Channel> existingChannelUpdate = channelRepository.findById(post.getIdChannel());
+    public Post updatePost(Post updatedPost, long id) {
+        Optional<Channel> existingChannelUpdate = channelRepository.findById(updatedPost.getIdChannel());
 
         if (existingChannelUpdate.isPresent()) {
             Channel channel = existingChannelUpdate.get();
 
-            post.setChannel(channel);
-            post.setPostDateTime(new Date());
-            post.setId(id);
-            postRepository.save(post);
-            return post;
+            Optional<Post> existingPostOptional = postRepository.findById(id);
+
+
+            if (existingPostOptional.isPresent()) {
+                Post existingPost = existingPostOptional.get();
+                if (!existingPost.getMessage().equals(updatedPost.getMessage())) {
+
+                    updatedPost.setChannel(channel);
+                    updatedPost.setPostDateTime(new Date());
+                    updatedPost.setId(id);
+                    postRepository.save(updatedPost);
+                }
+            }
+            return updatedPost;
         }else {
             return null;
         }
