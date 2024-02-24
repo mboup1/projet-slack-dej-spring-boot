@@ -44,10 +44,10 @@ class PostServiceIntegrationTest {
         channel1.setName("canal 1");
         channelRepository.save(channel1);
 
-        User user1 = new User("jeff", "jef@jef.com");
+        User user1 = new User("Jeff", "jef@jef.com");
         userRepository.save(user1);
 
-        Post post1 = new Post("Bonjour, premier post dans le canal 1 !", new Date());
+        Post post1 = new Post("Bonjour, premier post dans le général !", new Date());
         post1.setChannel(channel1);
         post1.setUser(user1);
 

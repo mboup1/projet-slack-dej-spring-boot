@@ -18,6 +18,11 @@ public class Post {
     @Column(nullable = false)
     private Date postDateTime;
 
+    private Long idChannel;
+
+    private Integer idUser;
+
+
     @ManyToOne
     @JoinColumn(name = "user_id")
 //    @JsonIgnore
@@ -28,7 +33,6 @@ public class Post {
     @JsonIgnore
     private Channel channel;
 
-    private Long idChannel;
 
 
 
@@ -67,6 +71,10 @@ public class Post {
     public Long getIdChannel() {return idChannel;}
 
     public void setIdChannel(Long idChannel) {this.idChannel = idChannel;}
+
+    public Integer getIdUser() {return idUser;}
+
+    public void setIdUser(Integer idUser) {this.idUser = idUser;}
 
     public User getUser() {return user;}
 

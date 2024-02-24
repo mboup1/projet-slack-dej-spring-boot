@@ -36,11 +36,14 @@ public class PostService {
 
     public Post addPost(Post post) {
         Optional<Channel> existingChannel = channelRepository.findById(post.getIdChannel());
+        Optional<User> existingUser = userRepository.findById(post.getIdUser());
         if (existingChannel.isPresent()) {
 
             Channel channel = existingChannel.get();
+            User user = existingUser.get();
 
             post.setChannel(channel);
+            post.setUser(user);
             post.setPostDateTime(new Date());
             postRepository.save(post);
             return post;
@@ -55,9 +58,11 @@ public class PostService {
 
     public Post updatePost(Post updatedPost, long id) {
         Optional<Channel> existingChannelUpdate = channelRepository.findById(updatedPost.getIdChannel());
+        Optional<User> existingUserUpdate = userRepository.findById(updatedPost.getIdUser());
 
         if (existingChannelUpdate.isPresent()) {
             Channel channel = existingChannelUpdate.get();
+            User user = existingUserUpdate.get();
 
             Optional<Post> existingPostOptional = postRepository.findById(id);
 
@@ -67,6 +72,8 @@ public class PostService {
                 if (!existingPost.getMessage().equals(updatedPost.getMessage())) {
 
                     updatedPost.setChannel(channel);
+                    updatedPost.setUser(user);
+
                     updatedPost.setPostDateTime(new Date());
                     updatedPost.setId(id);
                     postRepository.save(updatedPost);
