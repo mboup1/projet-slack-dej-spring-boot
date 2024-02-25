@@ -90,6 +90,9 @@ public class Post {
                 "id=" + id +
                 ", message='" + message + '\'' +
                 ", postDateTime=" + postDateTime +
+                ", idChannel=" + idChannel +
+                ", idUser=" + idUser +
+                ", user=" + user +
                 '}';
     }
 }

@@ -67,13 +67,12 @@ public class SlackDejApplication {
             channelService.save(channel1);
 
 
-//
             Post post1 = new Post("Bonjour, premier post dans le canal général !", new Date());
             post1.setIdChannel(channel1.getId());
             post1.setIdUser(user1.getId());
             post1.setChannel(channel1);
             post1.setUser(user1);
-//
+
             postService.addPost(post1);
 
             System.out.println("Fin initialisation");

@@ -1,6 +1,10 @@
 package fr.moussalli.slackdej.controller;
 
 import fr.moussalli.slackdej.entity.Channel;
+import fr.moussalli.slackdej.entity.Post;
+import fr.moussalli.slackdej.entity.User;
+import fr.moussalli.slackdej.repository.ChannelRepository;
+import fr.moussalli.slackdej.repository.PostRepository;
 import fr.moussalli.slackdej.service.ChannelService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +19,12 @@ import java.util.Optional;
 public class ChannelController {
 
     private final ChannelService channelService;
+
+    @Autowired
+    ChannelRepository channelRepository;
+
+    @Autowired
+    PostRepository postRepository;
 
     @Autowired
     public ChannelController(ChannelService channelService) {
@@ -46,19 +56,14 @@ public class ChannelController {
     // Update an existing Channel
     @PutMapping("/{id}")
     public ResponseEntity<Channel> updateChannel(@PathVariable Long id, @RequestBody Channel channelDetails) {
+
         return channelService.findById(id)
                 .map(channel -> {
                     if (channelDetails.getName() != null) {
                         channel.setName(channelDetails.getName());
                     }
-                    if (channelDetails.getUser() != null) {
-                        channel.setUser(channelDetails.getUser());
-                    }
-                    if (channelDetails.getPosts() != null) {
-                        channel.getPosts().clear(); // Clear the existing collection
-                        channel.getPosts().addAll(channelDetails.getPosts()); // Add all from the new collection
-                    }
-                    channelService.update(channel);
+
+                    channelService.updateChannel(id, channel);
                     return ResponseEntity.ok(channel);
                 })
                 .orElseGet(() -> ResponseEntity.notFound().build());
