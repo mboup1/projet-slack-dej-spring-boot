@@ -8,7 +8,7 @@
         <version>3.2.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>fr.moussalli</groupId>
+    <groupId>com.slackDEJ</groupId>
     <artifactId>slackDEJ</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>slackDEJ</name>
@@ -37,7 +37,6 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

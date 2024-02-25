@@ -1,5 +1,23 @@
 # projetSlackDEJ
 
+# Specify the behavior of Hibernate during application startup
+
+# Port on which the application will listen for requests (default is 8080)
+server.port=8080
+
+# Use "update" to update the existing database, and "create" to recreate it.
+spring.jpa.hibernate.ddl-auto=update
+
+# Database username
+spring.datasource.username={USERNAME}
+
+# Database password
+spring.datasource.password={PASSWORD}
+
+# Display SQL queries in the console
+spring.jpa.show-sql=true
+
+
 ![img_2.png](img_2.png)
 ![img.png](img.png)
 
