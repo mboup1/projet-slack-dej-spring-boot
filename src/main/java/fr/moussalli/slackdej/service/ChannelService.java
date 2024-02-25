@@ -1,10 +1,15 @@
 package fr.moussalli.slackdej.service;
 
 import fr.moussalli.slackdej.entity.Channel;
+import fr.moussalli.slackdej.entity.Post;
+import fr.moussalli.slackdej.entity.User;
 import fr.moussalli.slackdej.repository.ChannelRepository;
+import fr.moussalli.slackdej.repository.PostRepository;
+import fr.moussalli.slackdej.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,8 +41,29 @@ public class ChannelService {
         channelRepository.deleteById(id);
     }
 
-    public void update(Channel channel) {
-        channelRepository.save(channel);
+    public Channel updateChannel( long id, Channel updatedChannel) {
+        Optional<Channel> existingChannelUpdate = channelRepository.findById(id);
+
+        if (existingChannelUpdate.isPresent()) {
+            Channel channel = existingChannelUpdate.get();
+            System.out.println("channel :"+ channel);
+
+            User user = existingChannelUpdate.get().getUser();
+            System.out.println("user :"+ user);
+
+            List<Post> updatedListPosts = existingChannelUpdate.get().getPosts();
+            System.out.println("updatedListPosts :"+ updatedListPosts);
+
+            channel.setUser(user);
+            channel.setPosts(updatedListPosts);
+            updatedChannel.setId(id);
+
+            channelRepository.save(channel);
+
+            return channel;
+        }else {
+            return null;
+        }
     }
 
     public int nombreDeChannels() {

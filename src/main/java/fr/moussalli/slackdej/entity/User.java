@@ -105,8 +105,8 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                ", posts=" + posts +
-                ", channels=" + channels +
+//                ", posts=" + posts +
+//                ", channels=" + channels +
                 '}';
     }
 

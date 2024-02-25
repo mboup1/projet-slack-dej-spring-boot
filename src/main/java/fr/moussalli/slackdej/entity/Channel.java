@@ -1,5 +1,6 @@
 package fr.moussalli.slackdej.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Channel {
     private List<Post> posts = new ArrayList<>();
 
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     public Channel() {
