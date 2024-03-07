@@ -25,9 +25,7 @@ public class PostService {
     @Autowired
     private ChannelRepository channelRepository;
 
-    public List<Post> getAllPosts() {
-        return postRepository.findAll();
-    }
+    public List<Post> getAllPosts() {return postRepository.findAll();}
 
     public Post getPostById(long id) {
         Optional<Post> optionalPost = postRepository.findById(id);

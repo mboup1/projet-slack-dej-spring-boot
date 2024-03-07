@@ -17,15 +17,11 @@ public class Post {
 
     @Column(nullable = false)
     private Date postDateTime;
-
     private Long idChannel;
-
     private Integer idUser;
-
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-//    @JsonIgnore
     private User user;
 
     @ManyToOne

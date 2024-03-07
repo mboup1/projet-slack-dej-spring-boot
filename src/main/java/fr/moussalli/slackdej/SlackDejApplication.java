@@ -17,6 +17,7 @@ import org.springframework.context.event.EventListener;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -56,7 +57,10 @@ public class SlackDejApplication {
         if (channelRepository.count() == 0) {
             System.out.println("// initialisation application //////////////////////////");
 
-            User user1 = new User("Jeff", "jef@jef.com");
+            User user1 = new User("mboup", "dame@dame.com");
+            user1.setUsername("dame");
+            user1.setPassword("123");
+            user1.setRoles(Arrays.asList("USER", "ADMIN"));
             userService.addUser(user1);
 
 

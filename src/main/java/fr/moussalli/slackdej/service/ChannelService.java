@@ -37,10 +37,16 @@ public class ChannelService {
         return channelRepository.findById(id);
     }
 
+    //Jerome
+    public Channel update(Channel channel) {
+        return channelRepository.save(channel);
+    }
+
     public void delete(Long id) {
         channelRepository.deleteById(id);
     }
 
+    //Dame
     public Channel updateChannel( long id, Channel updatedChannel) {
         Optional<Channel> existingChannelUpdate = channelRepository.findById(id);
 

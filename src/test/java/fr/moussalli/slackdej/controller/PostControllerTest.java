@@ -88,27 +88,5 @@ class PostControllerTest {
         assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
         assertEquals(mockPostAdded, responseEntity.getBody());
     }
-
-//    @Test
-//    void testDeletePostById() {
-//        long postId = 1L;
-//
-//        // Mockez la réponse du service
-//        doNothing().when(postService).deletePost(postId);
-//
-//        // Appelez la méthode du contrôleur
-//        ResponseEntity<?> responseEntity = postController.deletePost(postId);
-//
-//        // Assertions
-//        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-//        assertEquals("Post with " + postId + " successfully deleted", responseEntity.getBody());
-//
-//        // Vérifiez que la méthode du service a été appelée avec le bon ID
-//        verify(postService, times(1)).deletePost(postId);
-//    }
-
-
-
-
 }
 
