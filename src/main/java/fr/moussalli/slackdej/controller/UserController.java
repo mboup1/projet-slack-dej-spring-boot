@@ -3,6 +3,7 @@ package fr.moussalli.slackdej.controller;
 import fr.moussalli.slackdej.entity.Channel;
 import fr.moussalli.slackdej.entity.Post;
 import fr.moussalli.slackdej.entity.User;
+import fr.moussalli.slackdej.repository.UserRepository;
 import fr.moussalli.slackdej.service.ChannelService;
 import fr.moussalli.slackdej.service.PostService;
 import fr.moussalli.slackdej.service.UserService;
@@ -21,8 +22,12 @@ public class UserController {
     private UserService userService;
     @Autowired
     PostService postService;
+
     @Autowired
     ChannelService channelService;
+
+    @Autowired
+    UserRepository userRepository;
 
  // GET ALL users
      @GetMapping("users")
@@ -31,21 +36,48 @@ public class UserController {
          return ResponseEntity.ok(users);
      }
 
+    // GET all emails of users
+    @GetMapping("users/emails")
+    public ResponseEntity<List<String>> getAllUserEmails() {
+        List<String> emails = userService.getAllEmails();
+        return ResponseEntity.ok(emails);
+    }
+
+
+    @GetMapping("users/emails/{id}")
+    public ResponseEntity<List<String>> getEmail(@PathVariable("id") Integer id) {
+
+        List<String> email = userService.getEmail(id);
+
+        if (email.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(email);
+    }
+
+    // POST users
+    @PostMapping("users")
+    public ResponseEntity<?> createUser(@RequestBody User newUser){
+
+        List<String> allEmails = userService.getAllEmails();
+
+        if (allEmails.contains(newUser.getEmail())) {
+            return ResponseEntity.badRequest().body("Email exist déjà !");
+        }
+
+         if(newUser.getName()==null || newUser.getName().isBlank() || newUser.getEmail()==null||newUser.getEmail().isBlank())
+             return ResponseEntity.badRequest().body("Saisie incomplète!");
+         userService.addUser(newUser);
+         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+    }
+
      // GET user/1
      @GetMapping("users/{id}")
      public ResponseEntity<?> getOneById(@PathVariable("id") Integer id) {
         Optional<User> optional = userService.getOneById(id);
          return optional.isPresent() ? ResponseEntity.ok(optional.get()) : ResponseEntity.badRequest().body("id inexistant");
     }
-
-    // POST users
-    @PostMapping("users")
-    public ResponseEntity<?> createUser(@RequestBody User newUser){
-         if(newUser.getName()==null || newUser.getName().isBlank() || newUser.getEmail()==null||newUser.getEmail().isBlank())
-             return ResponseEntity.badRequest().body("Saisie incomplète!");
-         userService.addUser(newUser);
-         return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
-     }
 
 
      // PUT users
@@ -72,6 +104,7 @@ public class UserController {
         return ResponseEntity.ok("Suppression réalisée!");
 
     }
+
 
 }
 

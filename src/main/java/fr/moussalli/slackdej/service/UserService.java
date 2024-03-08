@@ -3,10 +3,14 @@ package fr.moussalli.slackdej.service;
 import fr.moussalli.slackdej.entity.User;
 import fr.moussalli.slackdej.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -19,12 +23,25 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public List<String> getEmail(Integer idUser) {
+        Optional<User> optional = userRepository.findById(idUser);
+        if (optional.isPresent()) {
+            User user = optional.get();
+            return Collections.singletonList(user.getEmail());
+        }
+        return Collections.emptyList();
+    }
+
+
     public Optional<User> getOneById(Integer id) {
         return userRepository.findById(id);
     }
-// Ajouts
-public User addUser(User user) {
-    return userRepository.save(user);
+
+
+    // Add User with Email Check
+    public User addUser(User user) {
+        
+        return userRepository.save(user);
     }
 
 
@@ -57,6 +74,16 @@ public User addUser(User user) {
     public int nombreDeUsers() {
         return userRepository.findAll().size();
     }
+
+
+    // Get All Emails
+    public List<String> getAllEmails() {
+        return userRepository.findAllByEmailIsNotNull()
+                .stream()
+                .map(User::getEmail)
+                .collect(Collectors.toList());
+    }
+
 
 }
 
