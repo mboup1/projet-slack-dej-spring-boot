@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="SlackDejApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
     <module name="slackDEJ" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="fr.moussalli.slackdej.SlackDejApplication" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.dame.slackde.SlackDejApplication" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
