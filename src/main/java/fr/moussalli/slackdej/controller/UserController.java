@@ -29,6 +29,11 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @GetMapping("/public")
+    public String helloPublic() {
+        return "Hello Autour Du Code public!";
+    }
+
  // GET ALL users
      @GetMapping("users")
      public ResponseEntity<List<User>> getAllUsers(){
@@ -66,7 +71,7 @@ public class UserController {
             return ResponseEntity.badRequest().body("Email exist déjà !");
         }
 
-         if(newUser.getName()==null || newUser.getName().isBlank() || newUser.getEmail()==null||newUser.getEmail().isBlank())
+         if(newUser.getName()==null || newUser.getName().isBlank() || newUser.getEmail()==null || newUser.getEmail().isBlank())
              return ResponseEntity.badRequest().body("Saisie incomplète!");
          userService.addUser(newUser);
          return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
@@ -98,14 +103,12 @@ public class UserController {
         Optional<User> optional = userService.getOneById(id);
 
         if (optional.isEmpty())
-            return ResponseEntity.notFound().build();
+        return ResponseEntity.badRequest().body("Aucun utilisateur avec cet id !");
+
 
         userService.deleteUserById(id);
         return ResponseEntity.ok("Suppression réalisée!");
-
     }
-
-
 }
 
 

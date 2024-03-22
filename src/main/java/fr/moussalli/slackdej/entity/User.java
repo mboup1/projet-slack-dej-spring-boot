@@ -50,9 +50,7 @@ public class User {
     }
 
 
-    public String getName() {
-        return name;
-    }
+    public String getName() {return name;}
 
     public void setName(String name) {
         this.name = name;
@@ -145,6 +143,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }

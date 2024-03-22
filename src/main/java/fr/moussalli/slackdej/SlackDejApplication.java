@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -44,12 +46,6 @@ public class SlackDejApplication {
 
     public static void main(String[] args) {SpringApplication.run(SlackDejApplication.class, args);}
 
-
-    // @EventListener(ApplicationReadyEvent.class) permet de s'assurer que la méthode initApplication
-    // va s'exécuter une fois que la class SlackDejApplication a été instanciée et que le contexte
-    // d'application est complètement prêt.
-    // Cela signifie que l'utilisation de cet événement garantit que la méthode d'initialisation
-    // s'exécute à un point où tous les services, contrôleurs et configurations sont pleinement opérationnels.
     @EventListener(ApplicationReadyEvent.class)
     void initApplication() {
 
@@ -59,6 +55,7 @@ public class SlackDejApplication {
 
             User user1 = new User("mboup", "dame@dame.com");
             user1.setUsername("dame");
+//            user1.setPassword("$2a$10$vDkR.U8N0GZzSmteZjYaRuhSu69hWvoBk.3ItX1Rugzlg316M82uy");
             user1.setPassword("123");
             user1.setRoles(Arrays.asList("USER", "ADMIN"));
             userService.addUser(user1);
@@ -83,5 +80,11 @@ public class SlackDejApplication {
         }
 
     }
+
+
+//    @Bean
+//    BCryptPasswordEncoder getBCE() {
+//        return new BCryptPasswordEncoder();
+//    }
 
 }

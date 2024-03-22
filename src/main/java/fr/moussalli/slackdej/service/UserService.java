@@ -3,8 +3,10 @@ package fr.moussalli.slackdej.service;
 import fr.moussalli.slackdej.entity.User;
 import fr.moussalli.slackdej.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -17,7 +19,13 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
     public List<User> getAll() {
         return userRepository.findAll();
@@ -40,7 +48,9 @@ public class UserService {
 
     // Add User with Email Check
     public User addUser(User user) {
-        
+//        System.out.println("user : "+ user);
+
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -82,6 +92,11 @@ public class UserService {
                 .stream()
                 .map(User::getEmail)
                 .collect(Collectors.toList());
+    }
+
+
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
 

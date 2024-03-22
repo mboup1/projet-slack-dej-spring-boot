@@ -10,4 +10,7 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findAllByEmailIsNotNull();
+
+    User findByUsername(String username);
+
 }
